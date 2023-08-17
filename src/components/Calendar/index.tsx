@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import ReactCalendar from 'react-calendar'
-import { add } from 'date-fns'
-import { time } from "console";
+import { add, format } from 'date-fns'
 
 interface indexProps { }
 
@@ -15,14 +14,14 @@ const index: FC<indexProps> = ({ }) => {
         justDate: null,
         dateTime: null,
     })
-
+    console.log(date.dateTime)
     const getTimes = () => {
         if (!date.justDate) return
 
         const { justDate } = date
 
         const beginning = add(justDate, { hours: 9 })
-        const end = add(justDate, { hours: 7 })
+        const end = add(justDate, { hours: 17 })
         const interval = 30
 
         const times = []
@@ -40,7 +39,9 @@ const index: FC<indexProps> = ({ }) => {
                 <div className='flex gap-4'>
                     {times?.map((time, i) => (
                         <div key={`time-${i}`} className='rounded-sm bg-gray-100 p-2'>
-                            <button type='button' onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}></button>
+                            <button type='button' onClick={() => setDate((prev) => ({ ...prev, dateTime: time }))}>
+                                {format(time, 'kk:mm')}
+                            </button>
                         </div>
                     ))}
                 </div>
